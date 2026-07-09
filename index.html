@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="LED Matrix Panel - Programlanabilir Piksel Ekran. Bluetooth uygulama kontrolü, pixel art, saat, animasyon ve daha fazlası. Evinizi akıllı ışıkla donatın!">
+  <meta name="theme-color" content="#faf8f5">
+  <title>LED Matrix Panel | Akıllı Piksel Ekran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Background Effects -->
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Animated grid background -->
+  <div class="grid-bg"></div>
+
+  <div class="page-wrapper">
+
+    <!-- Top Bar -->
+    <header class="top-bar" id="top-bar">
+      <div class="top-bar__logo">
+        <span class="top-bar__logo-icon">⬜</span>
+        PixelGrid
+      </div>
+      <div class="top-bar__badge">Stokta Var</div>
+    </header>
+
+
+
+    <!-- Hero Product Image -->
+    <section class="hero-section" id="hero-section">
+      <div class="hero-floating-badge">%35 İNDİRİM</div>
+      <div class="hero-image-container">
+        <img src="product-hero.jpg" alt="LED Matrix Panel 12x60cm - Bluetooth kontrollü RGB piksel ekran" loading="eager">
+        <div class="hero-overlay"></div>
+      </div>
+    </section>
+
+
+    <!-- Product Info -->
+    <section class="product-info">
+      <span class="product-info__category">✦ TREND ÜRÜN</span>
+      <h1 class="product-info__title">LED Matrix Panel 12×60cm Piksel Ekran</h1>
+      <p class="product-info__subtitle">Bluetooth uygulama ile kontrol edin! Animasyonlar, saat, kayan yazılar ve daha fazlasını kompakt bar panel üzerinde gösterin.</p>
+
+      <!-- Price -->
+      <div class="price-block">
+        <span class="price-block__current">₺1.799</span>
+        <span class="price-block__old">₺2.799</span>
+        <span class="price-block__discount">%35</span>
+      </div>
+
+      <!-- Shipping & COD Badges -->
+      <div class="promo-badges">
+        <div class="promo-badge promo-badge--shipping">
+          <span class="promo-badge__icon">🚚</span>
+          <span class="promo-badge__text">Ücretsiz Kargo</span>
+        </div>
+        <div class="promo-badge promo-badge--cod">
+          <span class="promo-badge__icon">💰</span>
+          <span class="promo-badge__text">Kapıda Ödeme</span>
+        </div>
+      </div>
+
+      <!-- Rating -->
+      <div class="rating-bar">
+        <div class="rating-bar__stars">★★★★★</div>
+        <span class="rating-bar__score">4.8</span>
+        <div class="rating-bar__divider"></div>
+        <span class="rating-bar__count">1.524 değerlendirme</span>
+      </div>
+
+      <!-- Water Resistant Badge -->
+      <div class="water-badge">
+        <span class="water-badge__icon">💧</span>
+        <span class="water-badge__text">IPX4 Suya Dayanıklı</span>
+      </div>
+    </section>
+
+    <!-- Features Grid -->
+    <div class="features-grid reveal">
+      <div class="feature-card">
+        <span class="feature-card__icon">🎨</span>
+        <span class="feature-card__label">Renk</span>
+        <span class="feature-card__value">16.7M RGB</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">📱</span>
+        <span class="feature-card__label">Kontrol</span>
+        <span class="feature-card__value">BT 5.0 App</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">📐</span>
+        <span class="feature-card__label">Çözünürlük</span>
+        <span class="feature-card__value">32×32 LED</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">⚡</span>
+        <span class="feature-card__label">Güç</span>
+        <span class="feature-card__value">USB-C 5V</span>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- What can you display section -->
+    <section class="uses-section reveal">
+      <h2 class="uses-section__title">Neler Gösterebilirsiniz?</h2>
+      <div class="uses-grid">
+        <div class="use-item">
+          <span class="use-item__icon">⏰</span>
+          <span class="use-item__text">Dijital Saat & Zamanlayıcı</span>
+        </div>
+        <div class="use-item">
+          <span class="use-item__icon">💬</span>
+          <span class="use-item__text">Kayan Yazı & Mesajlar</span>
+        </div>
+        <div class="use-item">
+          <span class="use-item__icon">🎵</span>
+          <span class="use-item__text">Müzik Görselleştirici</span>
+        </div>
+        <div class="use-item">
+          <span class="use-item__icon">📊</span>
+          <span class="use-item__text">Sayaç & Skorboard</span>
+        </div>
+        <div class="use-item">
+          <span class="use-item__icon">🎄</span>
+          <span class="use-item__text">Özel Gün Animasyonları</span>
+        </div>
+        <div class="use-item">
+          <span class="use-item__icon">🖼️</span>
+          <span class="use-item__text">GIF & Animasyon</span>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Testimonials -->
+    <section class="testimonials-section reveal">
+      <h2 class="testimonials-section__title">Müşteri Yorumları</h2>
+
+      <div class="testimonial-card">
+        <div class="testimonial-card__header">
+          <div class="testimonial-card__avatar">BK</div>
+          <div>
+            <div class="testimonial-card__name">Burak K.</div>
+            <div class="testimonial-card__date">2 gün önce</div>
+          </div>
+        </div>
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__text">Gaming setup'ıma harika uydu! Uygulama üzerinden kendi pixel art'larımı çizip gönderiyorum. Renkleri canlı ve parlak, karanlık odada muhteşem görünüyor.</p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-card__header">
+          <div class="testimonial-card__avatar">SY</div>
+          <div>
+            <div class="testimonial-card__name">Selin Y.</div>
+            <div class="testimonial-card__date">5 gün önce</div>
+          </div>
+        </div>
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__text">Oğluma doğum günü hediyesi aldım, bayıldı! Sürekli yeni animasyonlar yapıyor. Saat ve hava durumu widget'ı da çok kullanışlı.</p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-card__header">
+          <div class="testimonial-card__avatar">AÇ</div>
+          <div>
+            <div class="testimonial-card__name">Ali Ç.</div>
+            <div class="testimonial-card__date">1 hafta önce</div>
+          </div>
+        </div>
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__text">Kafeme aldım, müşteriler çok beğeniyor. Menü bilgilerini, kampanya yazılarını kayan yazı olarak gösteriyorum. Harika ürün!</p>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Package Contents -->
+    <section class="package-section reveal">
+      <h2 class="package-section__title">📦 Kutu İçeriği</h2>
+      <div class="package-list">
+        <div class="package-item">
+          <span class="package-item__check">✓</span>
+          <span>1× LED Matrix Panel (32×32)</span>
+        </div>
+        <div class="package-item">
+          <span class="package-item__check">✓</span>
+          <span>1× USB-C Güç Kablosu (1.5m)</span>
+        </div>
+
+        <div class="package-item">
+          <span class="package-item__check">✓</span>
+          <span>1× Duvar Montaj Kiti</span>
+        </div>
+        <div class="package-item">
+          <span class="package-item__check">✓</span>
+          <span>1× Kullanım Kılavuzu (TR)</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Order Form -->
+    <section class="order-section reveal" id="order-section">
+      <h2 class="order-section__title">🛒 Sipariş Formu</h2>
+      <p class="order-section__subtitle">Kapıda ödeme ile güvenli alışveriş</p>
+
+      <form class="order-form" id="order-form" novalidate>
+
+        <!-- Package Selection -->
+        <div class="form-group">
+          <label>Paket Seçimi</label>
+          <div class="package-options">
+            <label class="package-option active" id="option-1">
+              <input type="radio" name="package" value="1" checked>
+              <div class="package-option__content">
+                <div class="package-option__top">
+                  <span class="package-option__qty">1 Adet</span>
+                  <span class="package-option__name">Matrix LED Panel</span>
+                </div>
+                <div class="package-option__price">₺1.799</div>
+              </div>
+              <span class="package-option__check">✓</span>
+            </label>
+            <label class="package-option" id="option-2">
+              <input type="radio" name="package" value="2">
+              <div class="package-option__content">
+                <div class="package-option__top">
+                  <span class="package-option__qty">2 Adet</span>
+                  <span class="package-option__name">Matrix LED Panel</span>
+                </div>
+                <div class="package-option__bottom">
+                  <span class="package-option__price">₺3.299</span>
+                  <span class="package-option__save">₺299 Tasarruf</span>
+                </div>
+              </div>
+              <span class="package-option__check">✓</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="form-group">
+          <label for="input-name">Ad Soyad</label>
+          <input type="text" id="input-name" name="name" placeholder="Adınızı ve soyadınızı girin" required autocomplete="name">
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="input-phone">Telefon</label>
+          <input type="tel" id="input-phone" name="phone" placeholder="05XX XXX XX XX" required autocomplete="tel">
+        </div>
+
+        <!-- City -->
+        <div class="form-group">
+          <label for="input-city">İl</label>
+          <select id="input-city" name="city" required>
+            <option value="" disabled selected>İl seçiniz</option>
+            <option value="Adana">Adana</option>
+            <option value="Adıyaman">Adıyaman</option>
+            <option value="Afyonkarahisar">Afyonkarahisar</option>
+            <option value="Ağrı">Ağrı</option>
+            <option value="Amasya">Amasya</option>
+            <option value="Ankara">Ankara</option>
+            <option value="Antalya">Antalya</option>
+            <option value="Artvin">Artvin</option>
+            <option value="Aydın">Aydın</option>
+            <option value="Balıkesir">Balıkesir</option>
+            <option value="Bilecik">Bilecik</option>
+            <option value="Bingöl">Bingöl</option>
+            <option value="Bitlis">Bitlis</option>
+            <option value="Bolu">Bolu</option>
+            <option value="Burdur">Burdur</option>
+            <option value="Bursa">Bursa</option>
+            <option value="Çanakkale">Çanakkale</option>
+            <option value="Çankırı">Çankırı</option>
+            <option value="Çorum">Çorum</option>
+            <option value="Denizli">Denizli</option>
+            <option value="Diyarbakır">Diyarbakır</option>
+            <option value="Edirne">Edirne</option>
+            <option value="Elazığ">Elazığ</option>
+            <option value="Erzincan">Erzincan</option>
+            <option value="Erzurum">Erzurum</option>
+            <option value="Eskişehir">Eskişehir</option>
+            <option value="Gaziantep">Gaziantep</option>
+            <option value="Giresun">Giresun</option>
+            <option value="Gümüşhane">Gümüşhane</option>
+            <option value="Hakkari">Hakkari</option>
+            <option value="Hatay">Hatay</option>
+            <option value="Isparta">Isparta</option>
+            <option value="İçel (Mersin)">İçel (Mersin)</option>
+            <option value="İstanbul">İstanbul</option>
+            <option value="İzmir">İzmir</option>
+            <option value="Kars">Kars</option>
+            <option value="Kastamonu">Kastamonu</option>
+            <option value="Kayseri">Kayseri</option>
+            <option value="Kırklareli">Kırklareli</option>
+            <option value="Kırşehir">Kırşehir</option>
+            <option value="Kocaeli">Kocaeli</option>
+            <option value="Konya">Konya</option>
+            <option value="Kütahya">Kütahya</option>
+            <option value="Malatya">Malatya</option>
+            <option value="Manisa">Manisa</option>
+            <option value="Kahramanmaraş">Kahramanmaraş</option>
+            <option value="Mardin">Mardin</option>
+            <option value="Muğla">Muğla</option>
+            <option value="Muş">Muş</option>
+            <option value="Nevşehir">Nevşehir</option>
+            <option value="Niğde">Niğde</option>
+            <option value="Ordu">Ordu</option>
+            <option value="Rize">Rize</option>
+            <option value="Sakarya">Sakarya</option>
+            <option value="Samsun">Samsun</option>
+            <option value="Siirt">Siirt</option>
+            <option value="Sinop">Sinop</option>
+            <option value="Sivas">Sivas</option>
+            <option value="Tekirdağ">Tekirdağ</option>
+            <option value="Tokat">Tokat</option>
+            <option value="Trabzon">Trabzon</option>
+            <option value="Tunceli">Tunceli</option>
+            <option value="Şanlıurfa">Şanlıurfa</option>
+            <option value="Uşak">Uşak</option>
+            <option value="Van">Van</option>
+            <option value="Yozgat">Yozgat</option>
+            <option value="Zonguldak">Zonguldak</option>
+            <option value="Aksaray">Aksaray</option>
+            <option value="Bayburt">Bayburt</option>
+            <option value="Karaman">Karaman</option>
+            <option value="Kırıkkale">Kırıkkale</option>
+            <option value="Batman">Batman</option>
+            <option value="Şırnak">Şırnak</option>
+            <option value="Bartın">Bartın</option>
+            <option value="Ardahan">Ardahan</option>
+            <option value="Iğdır">Iğdır</option>
+            <option value="Yalova">Yalova</option>
+            <option value="Karabük">Karabük</option>
+            <option value="Kilis">Kilis</option>
+            <option value="Osmaniye">Osmaniye</option>
+            <option value="Düzce">Düzce</option>
+          </select>
+        </div>
+
+        <!-- District -->
+        <div class="form-group" id="district-group" style="display: none;">
+          <label for="input-district">İlçe</label>
+          <select id="input-district" name="district" required>
+            <option value="" disabled selected>Önce il seçiniz</option>
+          </select>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label for="input-address">Teslimat Adresi</label>
+          <textarea id="input-address" name="address" placeholder="Mahalle, sokak, bina no, daire no..." required></textarea>
+        </div>
+
+        <!-- Message -->
+        <div id="form-message" class="form-message"></div>
+
+        <!-- Submit -->
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <span class="submit-btn__text">
+            <span class="spinner" id="submit-spinner"></span>
+            <span class="submit-btn__label">Siparişi Onayla</span>
+          </span>
+        </button>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+          <span class="trust-badge">
+            <span class="trust-badge__icon">🔒</span>
+            Güvenli
+          </span>
+          <span class="trust-badge">
+            <span class="trust-badge__icon">🚚</span>
+            Ücretsiz Kargo
+          </span>
+          <span class="trust-badge">
+            <span class="trust-badge__icon">💳</span>
+            Kapıda Ödeme
+          </span>
+        </div>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__text">© 2026 PixelGrid. Tüm hakları saklıdır.<br>Kapıda ödeme ile güvenli alışveriş.</p>
+    </footer>
+
+  </div>
+
+  <!-- Sticky CTA Bar -->
+  <div class="sticky-cta">
+    <span class="sticky-cta__price">₺1.799</span>
+    <button class="sticky-cta__btn" type="button">Hemen Sipariş Ver →</button>
+  </div>
+
+  <script src="districts.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
