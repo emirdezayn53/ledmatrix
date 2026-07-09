@@ -68,6 +68,7 @@ class Carousel {
 function initPackageSelection() {
   const options = document.querySelectorAll('.package-option');
   const stickyPrice = document.querySelector('.sticky-cta__price');
+  const stickyOldPrice = document.querySelector('.sticky-cta__old-price');
 
   options.forEach(option => {
     const radio = option.querySelector('input[type="radio"]');
@@ -78,8 +79,12 @@ function initPackageSelection() {
       radio.checked = true;
 
       const pkg = PACKAGES[radio.value];
-      if (stickyPrice && pkg) {
-        stickyPrice.textContent = `₺${pkg.price.toLocaleString('tr-TR')}`;
+      if (pkg) {
+        if (stickyPrice) stickyPrice.textContent = `₺${pkg.price.toLocaleString('tr-TR')}`;
+        if (stickyOldPrice) {
+          // If 2 items are selected, show 4000 old price, otherwise 2000
+          stickyOldPrice.textContent = radio.value === '2' ? '₺4.000' : '₺2.000';
+        }
       }
     });
   });
@@ -219,7 +224,9 @@ function resetPackageSelection() {
   const districtGroup = document.getElementById('district-group');
   if (districtGroup) districtGroup.style.display = 'none';
   const stickyPrice = document.querySelector('.sticky-cta__price');
+  const stickyOldPrice = document.querySelector('.sticky-cta__old-price');
   if (stickyPrice) stickyPrice.textContent = '₺1.799';
+  if (stickyOldPrice) stickyOldPrice.textContent = '₺2.000';
 }
 
 function showMessage(el, type, text) {
@@ -266,6 +273,28 @@ function initStickyCTA() {
   observer.observe(orderSection);
 }
 
+// ===== GLOBAL CLICK REDIRECT =====
+function initGlobalClickRedirect() {
+  document.addEventListener('click', (e) => {
+    const orderSection = document.getElementById('order-section');
+    if (!orderSection) return;
+
+    // If the click is inside the order section (inputs, selects, buttons, labels etc.), do nothing
+    if (orderSection.contains(e.target)) {
+      return;
+    }
+
+    // Also do not trigger if clicking the sticky CTA button since it already scrolls
+    const cta = document.querySelector('.sticky-cta');
+    if (cta && cta.contains(e.target)) {
+      return;
+    }
+
+    // Scroll to the order section
+    orderSection.scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   const carouselEl = document.querySelector('.carousel');
@@ -276,4 +305,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initForm();
   initReveal();
   initStickyCTA();
+  initGlobalClickRedirect();
 });
