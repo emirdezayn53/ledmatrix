@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#faf8f5">
+  <title>Siparişiniz Alındı! | PixelGrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- ========================================== -->
+  <!-- FACEBOOK PIXEL CODE (BURAYA YAPIŞTIRIN) -->
+  <!-- ========================================== -->
+  <!-- Örn:
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'PIXEL_ID_BURAYA');
+    fbq('track', 'PageView');
+    fbq('track', 'Purchase', {value: 1799.00, currency: 'TRY'});
+  </script>
+  -->
+  <!-- ========================================== -->
+</head>
+<body>
+
+  <!-- Ambient Background Effects -->
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
+
+  <div class="page-wrapper">
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="top-bar__logo">
+        <span class="top-bar__logo-icon">⬜</span>
+        PixelGrid
+      </div>
+    </header>
+
+    <!-- Thank You Content -->
+    <main class="thankyou-container">
+      <div class="thankyou-card reveal visible">
+        <div class="thankyou-card__icon-wrapper">
+          <span class="thankyou-card__icon">🎉</span>
+        </div>
+        
+        <h1 class="thankyou-card__title">Siparişiniz Alındı!</h1>
+        <p class="thankyou-card__subtitle">Harika bir seçim yaptınız. LED Matrix Panel sipariş talebiniz başarıyla sisteme kaydedilmiştir.</p>
+        
+        <div class="thankyou-card__divider"></div>
+
+        <div class="thankyou-card__details">
+          <div class="thankyou-detail-item">
+            <span class="thankyou-detail-icon">📞</span>
+            <div class="thankyou-detail-text">
+              <strong>Onay Araması</strong>
+              <span>Müşteri temsilcilerimiz adres teyidi için en kısa sürede sizi arayacaktır.</span>
+            </div>
+          </div>
+          <div class="thankyou-detail-item">
+            <span class="thankyou-detail-icon">🚚</span>
+            <div class="thankyou-detail-text">
+              <strong>Hızlı Sevkiyat</strong>
+              <span>Onay sonrası siparişiniz aynı gün ücretsiz kargo ile yola çıkacaktır.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="thankyou-card__divider"></div>
+
+        <a href="index.html" class="thankyou-card__btn">Anasayfaya Dön</a>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="padding-bottom: 40px;">
+      <p class="footer__text">© 2026 PixelGrid. Tüm hakları saklıdır.<br>Kapıda ödeme ile güvenli alışveriş.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

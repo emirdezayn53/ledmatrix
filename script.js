@@ -187,9 +187,7 @@ function initForm() {
     try {
       if (!GOOGLE_SCRIPT_URL) {
         await new Promise(resolve => setTimeout(resolve, 1500));
-        showMessage(messageEl, 'success', '✅ Siparişiniz başarıyla alındı! En kısa sürede sizinle iletişime geçeceğiz.');
-        form.reset();
-        resetPackageSelection();
+        window.location.href = 'thankyou.html';
       } else {
         await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
@@ -197,9 +195,7 @@ function initForm() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(orderData)
         });
-        showMessage(messageEl, 'success', '✅ Siparişiniz başarıyla alındı! En kısa sürede sizinle iletişime geçeceğiz.');
-        form.reset();
-        resetPackageSelection();
+        window.location.href = 'thankyou.html';
       }
     } catch (err) {
       console.error('Order submission error:', err);

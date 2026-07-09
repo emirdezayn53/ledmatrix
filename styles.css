@@ -415,3 +415,124 @@ body {
   .features-grid { grid-template-columns: 1fr; }
   .uses-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== THANK YOU PAGE ===== */
+.thankyou-container {
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vh;
+}
+
+.thankyou-card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  width: 100%;
+}
+
+.thankyou-card__icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: rgba(139, 94, 60, 0.05);
+  border: 1px solid rgba(139, 94, 60, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.thankyou-card__icon {
+  font-size: 36px;
+}
+
+.thankyou-card__title {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--color-text);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.thankyou-card__subtitle {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.thankyou-card__divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 24px 0;
+}
+
+.thankyou-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+
+.thankyou-detail-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.thankyou-detail-icon {
+  font-size: 20px;
+  padding: 8px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.thankyou-detail-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.thankyou-detail-text strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.thankyou-detail-text span {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.thankyou-card__btn {
+  display: inline-block;
+  width: 100%;
+  padding: 16px;
+  background: var(--gradient-button);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: var(--transition-base);
+  box-shadow: 0 4px 12px rgba(139, 94, 60, 0.15);
+}
+
+.thankyou-card__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.thankyou-card__btn:active {
+  transform: translateY(0);
+}
