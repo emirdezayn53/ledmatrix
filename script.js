@@ -186,15 +186,20 @@ function initForm() {
 
     try {
       if (!GOOGLE_SCRIPT_URL) {
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 500));
         window.location.href = 'thankyou.html';
       } else {
-        await fetch(GOOGLE_SCRIPT_URL, {
+        // Send request with keepalive: true so it completes in the background even after navigating
+        fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderData)
+          body: JSON.stringify(orderData),
+          keepalive: true
         });
+        
+        // Wait a tiny 300ms for browser to initialize transmission, then redirect instantly
+        await new Promise(resolve => setTimeout(resolve, 300));
         window.location.href = 'thankyou.html';
       }
     } catch (err) {
