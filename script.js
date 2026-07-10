@@ -3,8 +3,8 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytPlwraT4eTw
 
 // ===== PRICING =====
 const PACKAGES = {
-  '1': { qty: 1, price: 2499, label: '1 Adet Matrix LED Panel' },
-  '2': { qty: 2, price: 4449, label: '2 Adet Matrix LED Panel' }
+  '1': { qty: 1, price: 1799, label: '1 Adet Matrix LED Panel' },
+  '2': { qty: 2, price: 3299, label: '2 Adet Matrix LED Panel' }
 };
 
 // ===== CAROUSEL =====
@@ -82,8 +82,8 @@ function initPackageSelection() {
       if (pkg) {
         if (stickyPrice) stickyPrice.textContent = `₺${pkg.price.toLocaleString('tr-TR')}`;
         if (stickyOldPrice) {
-          // If 2 items are selected, show 5998 old price, otherwise 2999
-          stickyOldPrice.textContent = radio.value === '2' ? '₺5.998' : '₺2.999';
+          // If 2 items are selected, show 4000 old price, otherwise 2000
+          stickyOldPrice.textContent = radio.value === '2' ? '₺4.000' : '₺2.000';
         }
       }
     });
@@ -226,8 +226,8 @@ function resetPackageSelection() {
   if (districtGroup) districtGroup.style.display = 'none';
   const stickyPrice = document.querySelector('.sticky-cta__price');
   const stickyOldPrice = document.querySelector('.sticky-cta__old-price');
-  if (stickyPrice) stickyPrice.textContent = '₺2.499';
-  if (stickyOldPrice) stickyOldPrice.textContent = '₺2.999';
+  if (stickyPrice) stickyPrice.textContent = '₺1.799';
+  if (stickyOldPrice) stickyOldPrice.textContent = '₺2.000';
 }
 
 function showMessage(el, type, text) {
