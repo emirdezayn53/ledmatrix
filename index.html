@@ -46,11 +46,20 @@
 
 
 
-    <!-- Hero Product Image -->
+    <!-- Hero Product Slider -->
     <section class="hero-section" id="hero-section">
       <div class="hero-floating-badge">%10 İNDİRİM</div>
       <div class="hero-image-container">
-        <img src="product-hero.jpg" alt="LED Matrix Panel 12x60cm - Bluetooth kontrollü RGB piksel ekran" loading="eager">
+        <div class="hero-slider" id="hero-slider">
+          <img class="hero-slider__img active" src="product-hero.jpg" alt="LED Matrix Panel 12x60cm" loading="eager">
+          <img class="hero-slider__img" src="product-slide-2.png" alt="LED Matrix Panel kullanım alanları" loading="lazy">
+          <img class="hero-slider__img" src="product-slide-3.png" alt="LED Matrix Panel detay görünümü" loading="lazy">
+        </div>
+        <div class="hero-slider__dots" id="hero-slider-dots">
+          <span class="hero-slider__dot active"></span>
+          <span class="hero-slider__dot"></span>
+          <span class="hero-slider__dot"></span>
+        </div>
         <div class="hero-overlay"></div>
       </div>
     </section>
