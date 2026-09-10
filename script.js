@@ -1,6 +1,35 @@
 // ===== CONFIGURATION =====
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytPlwraT4eTwGzSpBIBEmupW9oYHh6xSVNpLeW-mXcna8EsJZor61afiHAtlmmBlIUfA/exec';
 
+// ===== TELEGRAM =====
+const TELEGRAM_BOT_TOKEN = '8990575008:AAEJOPv_JZgK0WNK3UC-rzhZbuYHFM4oFMY';
+const TELEGRAM_CHAT_ID = '5465463307';
+
+function sendTelegram(orderData) {
+  const text = `🛒 *YENİ SİPARİŞ!*
+━━━━━━━━━━━━━━━━
+👤 *Ad Soyad:* ${orderData.name}
+📞 *Telefon:* ${orderData.phone}
+📍 *İl / İlçe:* ${orderData.city} / ${orderData.district}
+🏠 *Adres:* ${orderData.address}
+━━━━━━━━━━━━━━━━
+📦 *Paket:* ${orderData.package}
+💰 *Toplam:* ${orderData.totalPrice}
+🕐 *Tarih:* ${orderData.date}
+━━━━━━━━━━━━━━━━`;
+
+  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text: text,
+      parse_mode: 'Markdown'
+    }),
+    keepalive: true
+  }).catch(() => {});
+}
+
 // ===== PRICING =====
 const PACKAGES = {
   '1': { qty: 1, price: 1799, label: '1 Adet Matrix LED Panel' },
@@ -185,11 +214,14 @@ function initForm() {
     };
 
     try {
+      // Send Telegram notification directly
+      sendTelegram(orderData);
+
       if (!GOOGLE_SCRIPT_URL) {
         await new Promise(resolve => setTimeout(resolve, 500));
         window.location.href = 'thankyou.html';
       } else {
-        // Send request with keepalive: true so it completes in the background even after navigating
+        // Send to Google Sheets with keepalive
         fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
@@ -198,7 +230,7 @@ function initForm() {
           keepalive: true
         });
         
-        // Wait a tiny 300ms for browser to initialize transmission, then redirect instantly
+        // Wait a tiny 300ms for browser to initialize transmission, then redirect
         await new Promise(resolve => setTimeout(resolve, 300));
         window.location.href = 'thankyou.html';
       }
