@@ -1,6 +1,6 @@
 // ==============================================
 // GOOGLE APPS SCRIPT - SİPARİŞ KAYIT SİSTEMİ
-// + TELEGRAM BİLDİRİM
+// + TELEGRAM BİLDİRİM + IP TAKİP + MÜKERRER UYARI
 // ==============================================
 //
 // Bu kodu Google Apps Script'e yapıştırın.
@@ -11,9 +11,6 @@
 // 3. Bu kodu yapıştırın
 // 4. "Dağıt" > "Dağıtımları yönet" > sağ üstteki kalem ikonu
 // 5. Sürümü "Yeni sürüm" olarak seçin ve "Dağıt" tıklayın
-//
-// NOT: Telegram bildirimi için ek izin gerekmez,
-//      UrlFetchApp zaten Apps Script'te mevcuttur.
 // ==============================================
 
 // ===== TELEGRAM AYARLARI =====
@@ -27,6 +24,7 @@ function doPost(e) {
     var ss = getOrCreateSpreadsheet();
     var sheet = ss.getActiveSheet();
     
+    // Başlık satırı yoksa oluştur
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
         'Tarih',
@@ -39,16 +37,25 @@ function doPost(e) {
         'Paket',
         'Adet',
         'Toplam Fiyat',
+        'IP Adresi',
         'Durum'
       ]);
       
-      var headerRange = sheet.getRange(1, 1, 1, 11);
+      var headerRange = sheet.getRange(1, 1, 1, 12);
       headerRange.setFontWeight('bold');
       headerRange.setBackground('#7c3aed');
       headerRange.setFontColor('#ffffff');
       sheet.setFrozenRows(1);
     }
     
+    // Mükerrer sipariş kontrolü
+    var durum = 'Yeni';
+    if (data.isDuplicate === true) {
+      durum = '🚨 Şüpheli / Tekrar';
+    }
+    
+    // Satırı ekle
+    var newRow = sheet.getLastRow() + 1;
     sheet.appendRow([
       data.date || new Date().toLocaleString('tr-TR'),
       data.name || '',
@@ -60,14 +67,25 @@ function doPost(e) {
       data.package || '',
       data.quantity || '1',
       data.totalPrice || '',
-      'Yeni'
+      data.ip || 'Bilinmiyor',
+      durum
     ]);
     
-    for (var i = 1; i <= 9; i++) {
+    // Şüpheli siparişleri kırmızı arka planla işaretle
+    if (data.isDuplicate === true) {
+      var rowRange = sheet.getRange(newRow, 1, 1, 12);
+      rowRange.setBackground('#fce4e4');
+      var durumCell = sheet.getRange(newRow, 12);
+      durumCell.setFontColor('#c0392b');
+      durumCell.setFontWeight('bold');
+    }
+    
+    // Sütunları otomatik genişlet
+    for (var i = 1; i <= 12; i++) {
       sheet.autoResizeColumn(i);
     }
 
-    // ===== TELEGRAM BİLDİRİM GÖNDER =====
+    // Telegram bildirimi gönder
     sendTelegramNotification(data);
     
     return ContentService
@@ -112,7 +130,11 @@ function getOrCreateSpreadsheet() {
 // ===== TELEGRAM BİLDİRİM FONKSİYONU =====
 function sendTelegramNotification(data) {
   try {
-    var message = '🛒 *YENİ SİPARİŞ!*\n'
+    var header = (data.isDuplicate === true)
+      ? '🚨 *ŞÜPHELİ / TEKRAR SİPARİŞ!*'
+      : '🛒 *YENİ SİPARİŞ!*';
+
+    var message = header + '\n'
       + '━━━━━━━━━━━━━━━━\n'
       + '👤 *Ad Soyad:* ' + (data.name || '-') + '\n'
       + '📞 *Telefon:* ' + (data.phone || '-') + '\n'
@@ -122,6 +144,7 @@ function sendTelegramNotification(data) {
       + '📦 *Paket:* ' + (data.package || '-') + '\n'
       + '💰 *Toplam:* ' + (data.totalPrice || '-') + '\n'
       + '🕐 *Tarih:* ' + (data.date || new Date().toLocaleString('tr-TR')) + '\n'
+      + '🌐 *IP:* ' + (data.ip || 'Bilinmiyor') + '\n'
       + '━━━━━━━━━━━━━━━━';
 
     var url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
@@ -136,7 +159,6 @@ function sendTelegramNotification(data) {
       })
     });
   } catch (err) {
-    // Telegram hatası sipariş kaydını engellemez
     Logger.log('Telegram bildirim hatası: ' + err.toString());
   }
 }

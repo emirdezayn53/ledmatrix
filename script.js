@@ -252,7 +252,8 @@ function initForm() {
       package: pkg.label,
       date: new Date().toLocaleString('tr-TR'),
       product: 'LED Matrix Panel 12×60cm',
-      ip: visitorIP
+      ip: visitorIP,
+      isDuplicate: duplicate
     };
 
     try {
