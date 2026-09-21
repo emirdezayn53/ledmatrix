@@ -1,5 +1,5 @@
 // ===== CONFIGURATION =====
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytPlwraT4eTwGzSpBIBEmupW9oYHh6xSVNpLeW-mXcna8EsJZor61afiHAtlmmBlIUfA/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzRTGFWU8HzdqUg-ssMH7ZhCSYAFbaTcx4qW-cS7cXclswexRrvNKsSxf94dVlXAJUow/exec';
 
 // ===== TELEGRAM =====
 const TELEGRAM_BOT_TOKEN = '8990575008:AAEJOPv_JZgK0WNK3UC-rzhZbuYHFM4oFMY';
