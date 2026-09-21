@@ -5,8 +5,37 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytPlwraT4eTw
 const TELEGRAM_BOT_TOKEN = '8990575008:AAEJOPv_JZgK0WNK3UC-rzhZbuYHFM4oFMY';
 const TELEGRAM_CHAT_ID = '5465463307';
 
-function sendTelegram(orderData) {
-  const text = `🛒 *YENİ SİPARİŞ!*
+// ===== IP YAKALAMA =====
+let visitorIP = 'Bilinmiyor';
+fetch('https://api.ipify.org?format=json')
+  .then(r => r.json())
+  .then(d => { visitorIP = d.ip; })
+  .catch(() => {});
+
+// ===== MÜKERRER SİPARİŞ TESPİTİ =====
+const DUPLICATE_WINDOW_MS = 10 * 60 * 1000; // 10 dakika
+
+function isDuplicateOrder(ip) {
+  try {
+    const key = 'recent_orders';
+    const now = Date.now();
+    let records = JSON.parse(localStorage.getItem(key) || '[]');
+    // Eski kayıtları temizle
+    records = records.filter(r => now - r.time < DUPLICATE_WINDOW_MS);
+    const isDuplicate = records.some(r => r.ip === ip);
+    records.push({ ip, time: now });
+    localStorage.setItem(key, JSON.stringify(records));
+    return isDuplicate;
+  } catch { return false; }
+}
+
+// ===== TELEGRAM BİLDİRİM =====
+function sendTelegram(orderData, isDuplicate) {
+  const header = isDuplicate
+    ? '🚨 *ŞÜPHELİ / TEKRAR SİPARİŞ!*'
+    : '🛒 *YENİ SİPARİŞ!*';
+
+  const text = `${header}
 ━━━━━━━━━━━━━━━━
 👤 *Ad Soyad:* ${orderData.name}
 📞 *Telefon:* ${orderData.phone}
@@ -16,6 +45,7 @@ function sendTelegram(orderData) {
 📦 *Paket:* ${orderData.package}
 💰 *Toplam:* ${orderData.totalPrice}
 🕐 *Tarih:* ${orderData.date}
+🌐 *IP:* ${orderData.ip || 'Bilinmiyor'}
 ━━━━━━━━━━━━━━━━`;
 
   fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -164,6 +194,14 @@ function initForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
+    // ===== HONEYPOT BOT KONTROLÜ =====
+    const honeypot = form.querySelector('#input-website');
+    if (honeypot && honeypot.value) {
+      // Bot tespit edildi — sessizce sahte başarı göster
+      window.location.href = 'thankyou.html';
+      return;
+    }
+
     const submitBtn = form.querySelector('.submit-btn');
     const spinner = submitBtn.querySelector('.spinner');
     const btnText = submitBtn.querySelector('.submit-btn__label');
@@ -200,6 +238,9 @@ function initForm() {
     spinner.style.display = 'inline-block';
     btnText.textContent = 'Gönderiliyor...';
 
+    // Mükerrer sipariş tespiti
+    const duplicate = isDuplicateOrder(visitorIP);
+
     const orderData = {
       name,
       phone,
@@ -210,12 +251,13 @@ function initForm() {
       totalPrice: `₺${pkg.price.toLocaleString('tr-TR')}`,
       package: pkg.label,
       date: new Date().toLocaleString('tr-TR'),
-      product: 'LED Matrix Panel 12×60cm'
+      product: 'LED Matrix Panel 12×60cm',
+      ip: visitorIP
     };
 
     try {
-      // Send Telegram notification directly
-      sendTelegram(orderData);
+      // Send Telegram notification directly (with duplicate flag)
+      sendTelegram(orderData, duplicate);
 
       if (!GOOGLE_SCRIPT_URL) {
         await new Promise(resolve => setTimeout(resolve, 500));

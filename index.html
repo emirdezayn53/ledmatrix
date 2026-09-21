@@ -387,6 +387,12 @@
           <textarea id="input-address" name="address" placeholder="Mahalle, sokak, bina no, daire no..." required></textarea>
         </div>
 
+        <!-- Honeypot - bot tuzağı (kullanıcı görmez) -->
+        <div class="form-group form-group--hp" aria-hidden="true" tabindex="-1">
+          <label for="input-website">Website</label>
+          <input type="text" id="input-website" name="website" autocomplete="off" tabindex="-1">
+        </div>
+
         <!-- Message -->
         <div id="form-message" class="form-message"></div>
 

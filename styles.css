@@ -338,6 +338,8 @@ body {
 .form-group input::placeholder,
 .form-group textarea::placeholder { color: var(--color-text-dim); }
 .form-group textarea { resize: vertical; min-height: 90px; }
+/* Honeypot - bot tuzağı */
+.form-group--hp { position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; overflow: hidden; pointer-events: none; }
 
 /* ===== SUBMIT BUTTON ===== */
 .submit-btn {
