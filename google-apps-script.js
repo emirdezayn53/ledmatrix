@@ -14,7 +14,8 @@
 // ==============================================
 
 // ===== TELEGRAM AYARLARI =====
-var TELEGRAM_BOT_TOKEN = '8990575008:AAEJOPv_JZgK0WNK3UC-rzhZbuYHFM4oFMY';
+// NOT: Güvenlik için tokenınızı GitHub'da açık bırakmayın. script.google.com içine yapıştırırken yeni tokenınızı yazın.
+var TELEGRAM_BOT_TOKEN = 'BURAYA_TELEGRAM_BOT_TOKENI_YAZIN';
 var TELEGRAM_CHAT_ID = '5465463307';
 
 function doPost(e) {

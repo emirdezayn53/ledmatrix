@@ -1,10 +1,6 @@
 // ===== CONFIGURATION =====
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzRTGFWU8HzdqUg-ssMH7ZhCSYAFbaTcx4qW-cS7cXclswexRrvNKsSxf94dVlXAJUow/exec';
 
-// ===== TELEGRAM =====
-const TELEGRAM_BOT_TOKEN = '8990575008:AAEJOPv_JZgK0WNK3UC-rzhZbuYHFM4oFMY';
-const TELEGRAM_CHAT_ID = '5465463307';
-
 // ===== IP YAKALAMA =====
 let visitorIP = 'Bilinmiyor';
 fetch('https://api.ipify.org?format=json')
@@ -29,36 +25,6 @@ function isDuplicateOrder(ip) {
   } catch { return false; }
 }
 
-// ===== TELEGRAM BİLDİRİM =====
-function sendTelegram(orderData, isDuplicate) {
-  const header = isDuplicate
-    ? '🚨 *ŞÜPHELİ / TEKRAR SİPARİŞ!*'
-    : '🛒 *YENİ SİPARİŞ!*';
-
-  const text = `${header}
-━━━━━━━━━━━━━━━━
-👤 *Ad Soyad:* ${orderData.name}
-📞 *Telefon:* ${orderData.phone}
-📍 *İl / İlçe:* ${orderData.city} / ${orderData.district}
-🏠 *Adres:* ${orderData.address}
-━━━━━━━━━━━━━━━━
-📦 *Paket:* ${orderData.package}
-💰 *Toplam:* ${orderData.totalPrice}
-🕐 *Tarih:* ${orderData.date}
-🌐 *IP:* ${orderData.ip || 'Bilinmiyor'}
-━━━━━━━━━━━━━━━━`;
-
-  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: text,
-      parse_mode: 'Markdown'
-    }),
-    keepalive: true
-  }).catch(() => {});
-}
 
 // ===== PRICING =====
 const PACKAGES = {
@@ -257,9 +223,6 @@ function initForm() {
     };
 
     try {
-      // Send Telegram notification directly (with duplicate flag)
-      sendTelegram(orderData, duplicate);
-
       if (!GOOGLE_SCRIPT_URL) {
         await new Promise(resolve => setTimeout(resolve, 500));
         window.location.href = 'thankyou.html';
