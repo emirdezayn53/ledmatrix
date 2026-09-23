@@ -49,11 +49,32 @@ function doPost(e) {
       sheet.setFrozenRows(1);
     }
     
-    // Mükerrer sipariş kontrolü
-    var durum = 'Yeni';
-    if (data.isDuplicate === true) {
-      durum = '🚨 Şüpheli / Tekrar';
+    // ===== MÜKERRER SİPARİŞ KONTROLÜ (GELİŞMİŞ) =====
+    var isDuplicate = (data.isDuplicate === true || data.isDuplicate === 'true');
+    
+    // Tablodaki son siparişleri de tara (Aynı IP veya Telefon son 20 siparişte var mı?)
+    var lastRow = sheet.getLastRow();
+    if (!isDuplicate && lastRow > 1) {
+      var checkRows = Math.min(lastRow - 1, 25);
+      var startRow = lastRow - checkRows + 1;
+      var recentData = sheet.getRange(startRow, 1, checkRows, 12).getValues();
+      
+      var incomingIP = (data.ip || '').trim();
+      var incomingPhone = String(data.phone || '').replace(/\D/g, '');
+      
+      for (var i = recentData.length - 1; i >= 0; i--) {
+        var rowPhone = String(recentData[i][2] || '').replace(/\D/g, '');
+        var rowIP = String(recentData[i][10] || '').trim();
+        
+        if ((incomingIP && incomingIP !== 'Bilinmiyor' && rowIP === incomingIP) ||
+            (incomingPhone && incomingPhone.length >= 10 && rowPhone === incomingPhone)) {
+          isDuplicate = true;
+          break;
+        }
+      }
     }
+    
+    var durum = isDuplicate ? '🚨 Şüpheli / Tekrar' : 'Yeni';
     
     // Satırı ekle
     var newRow = sheet.getLastRow() + 1;
@@ -73,7 +94,7 @@ function doPost(e) {
     ]);
     
     // Şüpheli siparişleri kırmızı arka planla işaretle
-    if (data.isDuplicate === true) {
+    if (isDuplicate) {
       var rowRange = sheet.getRange(newRow, 1, 1, 12);
       rowRange.setBackground('#fce4e4');
       var durumCell = sheet.getRange(newRow, 12);
@@ -86,7 +107,8 @@ function doPost(e) {
       sheet.autoResizeColumn(i);
     }
 
-    // Telegram bildirimi gönder
+    // Telegram bildirimi gönder (isDuplicate durumuna göre)
+    data.isDuplicate = isDuplicate;
     sendTelegramNotification(data);
     
     return ContentService
@@ -131,7 +153,8 @@ function getOrCreateSpreadsheet() {
 // ===== TELEGRAM BİLDİRİM FONKSİYONU =====
 function sendTelegramNotification(data) {
   try {
-    var header = (data.isDuplicate === true)
+    var isDup = (data.isDuplicate === true || data.isDuplicate === 'true');
+    var header = isDup
       ? '🚨 *ŞÜPHELİ / TEKRAR SİPARİŞ!*'
       : '🛒 *YENİ SİPARİŞ!*';
 
