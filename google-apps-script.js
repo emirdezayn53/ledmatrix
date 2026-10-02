@@ -52,7 +52,13 @@ function doPost(e) {
     // ===== MÜKERRER SİPARİŞ KONTROLÜ (GELİŞMİŞ) =====
     var isDuplicate = (data.isDuplicate === true || data.isDuplicate === 'true');
     
-    // Tablodaki son siparişleri de tara (Aynı IP veya Telefon son 20 siparişte var mı?)
+    // Telefon numarasını normalize et (son 10 hane — Sheets baştaki 0'ı düşürebilir)
+    function normalizePhone(p) {
+      var digits = String(p || '').replace(/\D/g, '');
+      return digits.length >= 10 ? digits.slice(-10) : digits;
+    }
+    
+    // Tablodaki son siparişleri de tara (Aynı IP veya Telefon son 25 siparişte var mı?)
     var lastRow = sheet.getLastRow();
     if (!isDuplicate && lastRow > 1) {
       var checkRows = Math.min(lastRow - 1, 25);
@@ -60,10 +66,10 @@ function doPost(e) {
       var recentData = sheet.getRange(startRow, 1, checkRows, 12).getValues();
       
       var incomingIP = (data.ip || '').trim();
-      var incomingPhone = String(data.phone || '').replace(/\D/g, '');
+      var incomingPhone = normalizePhone(data.phone);
       
       for (var i = recentData.length - 1; i >= 0; i--) {
-        var rowPhone = String(recentData[i][2] || '').replace(/\D/g, '');
+        var rowPhone = normalizePhone(recentData[i][2]);
         var rowIP = String(recentData[i][10] || '').trim();
         
         if ((incomingIP && incomingIP !== 'Bilinmiyor' && rowIP === incomingIP) ||
