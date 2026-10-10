@@ -21,7 +21,35 @@
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '1575037027322061');
-  fbq('track', 'Purchase');
+  fbq('track', 'PageView');
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18390910448"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18390910448');
+
+    // Dönüşüm sadece formu gerçekten gönderen kişide sayılır (bot / direkt ziyaret / yenileme sayılmaz)
+    (function () {
+      var raw = null;
+      try { raw = sessionStorage.getItem('pending_conversion'); } catch (e) {}
+      if (!raw) return;
+      try { sessionStorage.removeItem('pending_conversion'); } catch (e) {}
+      var c = {};
+      try { c = JSON.parse(raw); } catch (e) { return; }
+
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18390910448/sJRWCLrTj5gdEPCLvMFE',
+        'value': c.value,
+        'currency': 'TRY',
+        'transaction_id': c.tid
+      });
+
+      fbq('track', 'Purchase', { value: c.value, currency: 'TRY' }, { eventID: c.tid });
+    })();
   </script>
 </head>
 <body>

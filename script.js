@@ -223,6 +223,14 @@ function initForm() {
     };
 
     try {
+      // Dönüşüm işareti: teşekkürler sayfası sadece bunu görürse Google/Meta'ya satış bildirir
+      try {
+        sessionStorage.setItem('pending_conversion', JSON.stringify({
+          value: pkg.price,
+          tid: 'ORD-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8)
+        }));
+      } catch (e) {}
+
       if (!GOOGLE_SCRIPT_URL) {
         await new Promise(resolve => setTimeout(resolve, 500));
         window.location.href = 'thankyou.html';
