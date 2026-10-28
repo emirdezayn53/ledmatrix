@@ -152,6 +152,78 @@ function initDistricts() {
   });
 }
 
+// ===== TELEFON FORMATLAMA =====
+function initPhoneFormat() {
+  const phone = document.getElementById('input-phone') || document.querySelector('input[name="phone"]');
+  if (!phone) return;
+
+  phone.addEventListener('input', (e) => {
+    let raw = e.target.value;
+    let digits = raw.replace(/\D/g, '');
+
+    // Kullanıcı tamamen sildiyse boş bırak (placeholder görünsün)
+    if (digits.length === 0) {
+      e.target.value = '';
+      return;
+    }
+
+    // Ülke kodu ve başlangıç temizliği (+90, 0090, 090, 90, 9, 0)
+    // 0 veya 9 ile başlayıp 5 girildiğinde doğrudan 5'ten başlat
+    if (digits.startsWith('0090')) {
+      digits = digits.slice(4);
+    } else if (digits.startsWith('090')) {
+      digits = digits.slice(3);
+    } else if (digits.startsWith('90')) {
+      digits = digits.slice(2);
+    } else if (digits.startsWith('9')) {
+      digits = digits.slice(1);
+    }
+
+    // Başındaki fazla sıfırları temizle
+    while (digits.startsWith('0')) {
+      digits = digits.slice(1);
+    }
+
+    // Sadece 0 veya 9 basıldıysa (henüz 5 veya numara devamı girilmediyse)
+    if (digits.length === 0) {
+      e.target.value = '0';
+      return;
+    }
+
+    // Türkiye cep numaraları 5 ile başlar, başına 0 ekle
+    digits = '0' + digits;
+
+    if (digits.length > 11) digits = digits.slice(0, 11);
+
+    // Format: 0 (5XX) XXX XX XX
+    let formatted = '0';
+    if (digits.length > 1) {
+      formatted += ' (' + digits.slice(1, Math.min(4, digits.length));
+    }
+    if (digits.length >= 4) {
+      formatted += ') ' + digits.slice(4, Math.min(7, digits.length));
+    }
+    if (digits.length >= 7) {
+      formatted += ' ' + digits.slice(7, Math.min(9, digits.length));
+    }
+    if (digits.length >= 9) {
+      formatted += ' ' + digits.slice(9, Math.min(11, digits.length));
+    }
+
+    e.target.value = formatted;
+  });
+
+  // Backspace basıldığında sadece 0 veya parantez kaldığında temizle
+  phone.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace') {
+      const val = phone.value.trim();
+      if (val === '0 (' || val === '0' || val === '0 ()') {
+        phone.value = '';
+      }
+    }
+  });
+}
+
 // ===== FORM HANDLING =====
 function initForm() {
   const form = document.getElementById('order-form');
@@ -194,11 +266,22 @@ function initForm() {
       return;
     }
 
-    const phoneClean = phone.replace(/\s/g, '');
-    if (!/^(05\d{9}|5\d{9}|\+905\d{9})$/.test(phoneClean)) {
-      showMessage(messageEl, 'error', '⚠️ Geçerli bir telefon numarası giriniz.');
+    let phoneDigits = phone.replace(/\D/g, '');
+    if (phoneDigits.startsWith('0090')) phoneDigits = phoneDigits.slice(4);
+    else if (phoneDigits.startsWith('090')) phoneDigits = phoneDigits.slice(3);
+    else if (phoneDigits.startsWith('90')) phoneDigits = phoneDigits.slice(2);
+    else if (phoneDigits.startsWith('9')) phoneDigits = phoneDigits.slice(1);
+
+    while (phoneDigits.startsWith('0')) phoneDigits = phoneDigits.slice(1);
+    if (phoneDigits.startsWith('5')) phoneDigits = '0' + phoneDigits;
+
+    const isValidPhone = phoneDigits.startsWith('05') && phoneDigits.length === 11;
+    if (!isValidPhone) {
+      showMessage(messageEl, 'error', '⚠️ Lütfen geçerli bir cep telefonu numarası giriniz (05XX...).');
       return;
     }
+
+    const cleanFormattedPhone = `0 (${phoneDigits.slice(1, 4)}) ${phoneDigits.slice(4, 7)} ${phoneDigits.slice(7, 9)} ${phoneDigits.slice(9, 11)}`;
 
     submitBtn.disabled = true;
     spinner.style.display = 'inline-block';
@@ -209,7 +292,7 @@ function initForm() {
 
     const orderData = {
       name,
-      phone,
+      phone: cleanFormattedPhone,
       city,
       district,
       address,
@@ -379,6 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (carouselEl) new Carousel(carouselEl);
 
   initHeroSlider();
+  initPhoneFormat();
   initPackageSelection();
   initDistricts();
   initForm();
